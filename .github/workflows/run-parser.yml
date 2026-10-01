@@ -12,10 +12,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.10'
 
@@ -28,14 +28,14 @@ jobs:
         python fy25_parser.py
 
     - name: Upload Excel results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: FY25_Excel_Output
         path: FY25_Extracted_Totals.xlsx
 
-    - name: Upload raw text totals
-      uses: actions/upload-artifact@v3
+    - name: Upload text output
+      uses: actions/upload-artifact@v4
       with:
         name: FY25_Text_Output
         path: text_output.txt
-        if-no-files-found: ignore
+        if-no-files-found: warn
