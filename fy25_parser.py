@@ -162,3 +162,12 @@ with pd.ExcelWriter("FY25_Extracted_Totals.xlsx") as writer:
     pd.DataFrame([grand_totals]).to_excel(writer, sheet_name="Grand Totals", index=False)
 
 print("\nExcel file created: FY25_Extracted_Totals.xlsx")
+
+with open("text_output.txt", "w") as f:
+    f.write("==== SEASON TOTALS ====\n")
+    f.write(season_totals.to_string(index=False))
+    f.write("\n\n==== CATEGORY TOTALS ====\n")
+    f.write(category_totals.to_string(index=False))
+    f.write("\n\n==== GRAND TOTALS ====\n")
+    for k, v in grand_totals.items():
+        f.write(f"{k}: {v}\n")
