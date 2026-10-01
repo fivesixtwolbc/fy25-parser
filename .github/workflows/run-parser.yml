@@ -1,0 +1,41 @@
+name: Run FY25 Parser
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-parser:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        pip install pdfplumber pandas openpyxl
+
+    - name: Run parser
+      run: |
+        python fy25_parser.py
+
+    - name: Upload Excel results
+      uses: actions/upload-artifact@v3
+      with:
+        name: FY25_Excel_Output
+        path: FY25_Extracted_Totals.xlsx
+
+    - name: Upload raw text totals
+      uses: actions/upload-artifact@v3
+      with:
+        name: FY25_Text_Output
+        path: text_output.txt
+        if-no-files-found: ignore
